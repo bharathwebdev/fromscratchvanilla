@@ -11,12 +11,13 @@
   background-image: url('../src/assets/earth.png');
  background-position: center;
   background-repeat: no-repeat;
-  object-fit:  contain;
   background-size: contain;
+
   position: absolute;
   top: 50%;
   z-index: -1;
   min-width: 100%;
+
    will-change:transform;
   min-height: 100vh;
    transform: translateZ(0);
@@ -27,4 +28,24 @@
 } 
 section {
   height: 200vh;
+}
+/* partical */
+
+.particles {
+  position: absolute;
+  z-index: -10000;
+}
+
+/* progress */
+
+.scrollprogress{
+  position: fixed;
+  top: 0px;
+  left:0px;
+  right: 0;
+  height: 4px;
+  background: rgb(112, 112, 255);
+  transform-origin: 50%;
+  z-index: 100;
+  border-radius: 50px;
 }

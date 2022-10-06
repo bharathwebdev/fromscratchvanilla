@@ -3,12 +3,17 @@ import { gsap } from "gsap";
 
 import './App.css';
 import { useLayoutEffect } from 'react';
-
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Nav from '../src/component/Nav'
 import Main from '../src/component/Main'
-import SmoothScroll from '../src/component/interactive/SmoothScroll'
+import { useCallback } from 'react';
+import { Particle } from './partical.config';
+import './astroid.css'
 
+import SmoothScroll from '../src/component/interactive/SmoothScroll'
+import { motion, useScroll, useTransform } from "framer-motion";
 gsap.registerPlugin(ScrollTrigger);
 
 
@@ -17,25 +22,31 @@ const App = () => {
   const parallex = useRef(null)
   const [background, setBackground] = useState('#262626');
   const headerRef = useRef(null);
+  const { scrollY } = useScroll();
+  const yValue = useTransform(scrollY, [0, 1000], [0, -300]);
+  const { scrollYProgress } = useScroll();
   
+  const particlesInit = useCallback(async (engine) => {
+    await loadFull(engine);
+  }, []);
+  const particlesLoaded = useCallback(async (container) => {}, []);
 
 
 
+  // useLayoutEffect(() => {
+  //   let to = gsap.to(headerRef.current, {
+  //     scrollTrigger: {
+  //       scrub: true
+  //     }, 
+  //     y: (i, target) => -ScrollTrigger.maxScroll(window) * target.dataset.speed,
+  //     ease: "none"
+  //   });
 
-  useLayoutEffect(() => {
-    let to = gsap.to(headerRef.current, {
-      scrollTrigger: {
-        scrub: true
-      }, 
-      y: (i, target) => -ScrollTrigger.maxScroll(window) * target.dataset.speed,
-      ease: "none"
-    });
+  //   return () => {
 
-    return () => {
-
-      to.kill();
-    };
-  });
+  //     to.kill();
+  //   };
+  // });
 const parallexFun = ()=>{
   // const target  = document.querySelectorAll('');
 window.requestAnimationFrame(()=>{
@@ -61,16 +72,51 @@ window.requestAnimationFrame(()=>{
   }
   },[])
 // gsap.to(headerRef.current, {rotation: 27, x: 100, duration: 1});
-
+var reset = function(e) {
+  e.target.className = '';
+  setTimeout(function() {
+    e.target.className = 'meteor';
+  }, 0);
+};
+var meteors = document.querySelectorAll('.meteor');
+for(var i = 0; i < meteors.length; i++) {
+  meteors[i].addEventListener('animationend', reset);
+}
   return (
 
 <div>
   {/* <SmoothScroll> */}
+  <motion.div className='scrollprogress' style={{ scaleX:scrollYProgress}} />
 
- 
+
+<div className="meteors">
+  <div className="meteor"></div>
+  <div className="meteor"></div>
+  <div className="meteor"></div>
+  <div className="meteor"></div>
+  <div className="meteor"></div>
+  <div className="meteor"></div>
+  <div className="meteor"></div>
+  <div className="meteor"></div>
+  <div className="meteor"></div>
+  <div className="meteor"></div>
+</div>
+<Particles
+        className="particles"
+        id="tsparticles"
+        init={particlesInit}
+        loaded={particlesLoaded}
+        options={Particle}
+     
+        
+      />
   <Nav/>
   <Main/>
-  <div className='img' ref={parallex} data-rate='-0.7' data-direction='vertical'></div>
+  <motion.div
+        className="img"
+        style={{ y: yValue, zIndex: -1 }}
+      ></motion.div>
+  {/* <div className='img' ref={parallex} data-rate='-0.6' data-direction='vertical'></div> */}
   <section >
 
   </section>
