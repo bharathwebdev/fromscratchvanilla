@@ -9,13 +9,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Nav from '../src/component/Nav'
 import Main from '../src/component/Main'
 import { useCallback } from 'react';
-import { Particle } from './partical.config';
+import { Particle } from './configsFiles/partical.config';
 import './astroid.css'
+import styled from 'styled-components';
+import Departments from './component/Departments';
 
-import SmoothScroll from '../src/component/interactive/SmoothScroll'
 import { motion, useScroll, useTransform } from "framer-motion";
-gsap.registerPlugin(ScrollTrigger);
 
+gsap.registerPlugin(ScrollTrigger);
+const DepartmentDiv = styled.div`
+position: sticky;
+`;
 
 
 const App = () => {
@@ -33,20 +37,7 @@ const App = () => {
 
 
 
-  // useLayoutEffect(() => {
-  //   let to = gsap.to(headerRef.current, {
-  //     scrollTrigger: {
-  //       scrub: true
-  //     }, 
-  //     y: (i, target) => -ScrollTrigger.maxScroll(window) * target.dataset.speed,
-  //     ease: "none"
-  //   });
 
-  //   return () => {
-
-  //     to.kill();
-  //   };
-  // });
 const parallexFun = ()=>{
   // const target  = document.querySelectorAll('');
 window.requestAnimationFrame(()=>{
@@ -65,23 +56,25 @@ window.requestAnimationFrame(()=>{
   
 }
   
-  useEffect(()=>{
+  // useEffect(()=>{
       
-    window.addEventListener('scroll',parallexFun)
-    return ()=>{window.removeEventListener('scroll',parallexFun)
-  }
-  },[])
+  //   window.addEventListener('scroll',parallexFun)
+  //   return ()=>{window.removeEventListener('scroll',parallexFun)
+  // }
+  // },[])
+
+  
 // gsap.to(headerRef.current, {rotation: 27, x: 100, duration: 1});
-var reset = function(e) {
-  e.target.className = '';
-  setTimeout(function() {
-    e.target.className = 'meteor';
-  }, 0);
-};
-var meteors = document.querySelectorAll('.meteor');
-for(var i = 0; i < meteors.length; i++) {
-  meteors[i].addEventListener('animationend', reset);
-}
+// var reset = function(e) {
+//   e.target.className = '';
+//   setTimeout(function() {
+//     e.target.className = 'meteor';
+//   }, 0);
+// };
+// var meteors = document.querySelectorAll('.meteor');
+// for(var i = 0; i < meteors.length; i++) {
+//   meteors[i].addEventListener('animationend', reset);
+// }
   return (
 
 <div>
@@ -117,9 +110,9 @@ for(var i = 0; i < meteors.length; i++) {
         style={{ y: yValue, zIndex: -1 }}
       ></motion.div>
   {/* <div className='img' ref={parallex} data-rate='-0.6' data-direction='vertical'></div> */}
-  <section >
-
-  </section>
+  <DepartmentDiv>
+        <Departments />
+      </DepartmentDiv>
   {/* </SmoothScroll> */}
 </div>
 
